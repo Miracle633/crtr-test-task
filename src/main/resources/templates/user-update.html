@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование информации о человеке</title>
+</head>
+<body>
+    <div class="topnav">
+        <a href="/users">Список людей</a>
+        <a href="/categories">Список категорий</a>
+        <a href="/user-search">Поиск по ИИН</a>
+        <a href="/api/report">Свод по категориям</a>
+    </div>
+    <form action="#" th:action="@{/user-update}" th:object="${user}" method="post">
+        <label for="id">ID</label>
+        <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
+        <br/>
+        <label for="lastName">Фамилия</label>
+        <input type="text" th:field="*{lastName}" id="lastName" placeholder="Фамилия">
+        <br/>
+        <label for="firstName">Имя</label>
+        <input type="text" th:field="*{firstName}" id="firstName" placeholder="Имя">
+        <br/>
+        <label for="middleName">Отчество</label>
+        <input type="text" th:field="*{middleName}" id="middleName" placeholder="Отчество">
+        <br/>
+        <label for="iin">ИИН</label>
+        <input type="number" th:field="*{iin}" id="iin" placeholder="ИИН" onkeyup="lengthCheck(this);">
+        <br/>
+        <div th:switch="${categories}">
+            <div th:case="null">
+                <label for="category-create">Список категорий пуст</label>
+                <a id="category-create" href="/category-create">Добавить категорию</a>
+            </div>
+            <div th:case="*">
+                <label for="category">Категория</label>
+                <select class="form-control" id="category" name="category" th:field="*{category.id}">
+                    <option th:each="category : ${categories}"
+                            th:value="${category.id}"
+                            th:text="${category?.name}"></option>
+                </select>
+            </div>
+        </div>
+        <input type="submit" value="Редактировать" onClick="return isIin;">
+    </form>
+</body>
+<script>
+    var isIin = false;
+    function lengthCheck(object) {
+        if (object.value.length === 12) {
+            isIin = true;
+        }
+    }
+</script>
+</html>

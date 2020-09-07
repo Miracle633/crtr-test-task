@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Получение статуса по ИИН</title>
+</head>
+<body>
+    <div class="topnav">
+        <a href="/users">Список людей</a>
+        <a href="/categories">Список категорий</a>
+        <a href="/api/report">Свод по категориям</a>
+    </div>
+    <form action="#" th:action="@{/user-search}" th:object="${userEntity}" method="post">
+        <label for="iin">ИИН</label>
+        <input type="number" id="iin" th:field="*{iin}" placeholder="ИИН" onkeyup="lengthCheck(this);">
+        <br/>
+        <input type="submit" value="Поиск" onClick="return isIin;">
+        <div th:switch="${category}">
+            <h2 th:case="null">Статуса по такому ИИН нет</h2>
+            <div th:case="*">
+                <h2 th:text="${category}"></h2>
+            </div>
+        </div>
+    </form>
+</body>
+<script>
+    var isIin = false;
+    function lengthCheck(object) {
+        if (object.value.length === 12) {
+            isIin = true;
+        }
+    }
+</script>
+</html>

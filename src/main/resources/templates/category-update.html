@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование категории</title>
+</head>
+<body>
+    <div class="topnav">
+        <a href="/users">Список людей</a>
+        <a href="/categories">Список категорий</a>
+        <a href="/user-search">Поиск по ИИН</a>
+        <a href="/api/report">Свод по категориям</a>
+    </div>
+    <form action="#" th:action="@{/category-update}" th:object="${category}" method="post">
+        <label for="id">ID</label>
+        <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
+        <br/>
+        <label for="name">Наименование</label>
+        <input type="text" th:field="*{name}" id="name" placeholder="Наименование">
+        <br/>
+        <input type="submit" value="Редактировать">
+    </form>
+</body>
+</html>

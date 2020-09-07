@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Список людей</title>
+</head>
+<body>
+    <div class="topnav">
+        <a href="/categories">Список категорий</a>
+        <a href="/user-search">Поиск по ИИН</a>
+        <a href="/api/report">Свод по категориям</a>
+    </div>
+    <div th:switch="${users}">
+        <h2 th:case="null">Список пуст</h2>
+        <div th:case="*">
+            <h2>Люди</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Фамилия</th>
+                        <th>Имя</th>
+                        <th>Отчество</th>
+                        <th>ИИН</th>
+                        <th>Категория</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.id}"></td>
+                        <td th:text="${user?.lastName}"></td>
+                        <td th:text="${user?.firstName}"></td>
+                        <td th:text="${user?.middleName}"></td>
+                        <td th:text="${user?.iin}"></td>
+                        <td th:text="${user?.category?.name}"></td>
+                        <td><a th:href="@{user-update/{id}(id=${user.id})}">Редактировать</a></td>
+                        <td><a th:href="@{user-delete/{id}(id=${user.id})}">Удалить</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p><a href="/user-create">Добавить человека</a></p>
+    </div>
+</body>
+</html>
