@@ -8,13 +8,23 @@ CREATE DATABASE test;
 3) Дать права на бд пользователю  
 GRANT ALL PRIVILEGES ON DATABASE test to test;  
 <br />
-Запустить приложение.  
-Таблицы сгенерятся автоматически, после надо будет создать процедуру в бд.  \
-Создать процедуру для получения статуса (категории) по ИИН:  \
-create or replace procedure GET_USER_CATEGORY_BY_IIN(in iin_in BIGINT, inout category_out varchar(50))  \
-    language plpgsql  \
-as $$  \
-begin  \
-    select c.name into category_out FROM t_user u JOIN t_category c on u.category_id = c.id WHERE u.iin = iin_in;  \
-end;  \
-$$;  \
+Запустить приложение.
+
+Таблицы сгенерятся автоматически, после надо будет создать процедуру в бд.
+
+Создать процедуру для получения статуса (категории) по ИИН
+
+create or replace procedure GET_USER_CATEGORY_BY_IIN(in iin_in BIGINT, inout category_out varchar(50))
+
+    language plpgsql
+
+as $$
+
+begin
+
+    select c.name into category_out FROM t_user u JOIN t_category c on u.category_id = c.id WHERE u.iin = iin_in;
+
+end;
+
+$$;
+
